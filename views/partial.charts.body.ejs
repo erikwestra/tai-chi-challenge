@@ -1,0 +1,14 @@
+<!-- Content to include to show the charts on the page.  This goes in the body
+     of the page. -->
+
+<div id="totals-charts">
+  <% for (var i=0; i < charts.length; i++) { %>
+    <div class="chart-wrapper pull-left">
+        <div class="chart-title">
+          <%= charts[i].title %>
+        </div>
+        <div id="chart-<%= i %>"></div>
+    </div>
+  <% } %>
+</div>
+

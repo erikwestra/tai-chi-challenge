@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partial.head.ejs %>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div style="height:20px"></div>
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="middle">
+          <td align="left">
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="180px">
+                  <img src="/images/ttclogo150.png"/>
+                </td>
+                <td>
+                  <table border="0"
+                         cellspacing="0"
+                         cellpadding="0">
+                    <tr>
+                      <td align="center">
+                        <h3>
+                          Taoist Tai Chi Society of
+                          New Zealand
+                        </h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="center">
+                        <h3>
+                          Tai Chi Challenge
+                        </h3>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <div style="height:20px"></div>
+
+      <h2>Sign Up</h2>
+
+      <form class="well" method="post"
+                         enctype="application/x-www-form-urlencoded">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" class="form-control"
+                             name="name"
+                             value="<%= cur_name %>"
+                             placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label for="branch">Your Branch</label>
+          <select class=form-control name="branch_id">
+            <% for (var i=0; i < branches.length; i++) {
+                                     var branch = branches[i]
+                                     var selected = ""
+                                     if (branches[i].id == cur_branch_id) {
+                                     selected = "selected"
+                                     }
+                                     %>
+                                     <option value="<%= branch.id %>" <%= selected %> >
+                                     <%= branch.name %>
+                                     </option>
+                                     <% } %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="username">Desired Username</label>
+          <input type="text" class="form-control"
+                             name="username"
+                             value="<%= cur_username %>"
+                             placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input type="password" class="form-control"
+                                 name="password1"
+                                 placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="password2">Re-Enter Password</label>
+          <input type="password" class="form-control"
+                                 name="password2"
+                                 placeholder="Password">
+        </div>
+
+        <% if (error) { %>
+        <div style="background:red; color:white; padding:5px">
+          <b><i><%= error %></i></b>
+        </div>
+        <div style="height:10px"></div>
+        <% } %>
+
+        <div class="button-group">
+          <button type="submit" name="submit" value="cancel"
+                                              class="btn btn-default">
+            Cancel
+          </button>
+
+          <div class="button-group pull-right">
+            <button type="submit" name="submit" value="signup"
+                                                class="btn btn-primary">
+              Sign Up
+            </button>
+          </div>
+      </form>
+        </div>
+  </body>
+</html>

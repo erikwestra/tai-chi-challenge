@@ -1,0 +1,43 @@
+<!-- Content to include to show the charts on the page.  This goes in the
+     <head> element -->
+
+<style>
+  div.chart-wrapper {
+    text-align: center;
+    margin: 25px;
+  }
+  div.chart-title {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+</style>
+
+<script>
+  $(function () {
+    var charts = JSON.parse('<%- JSON.stringify(charts) %>')
+
+    // The `charts` array should have one entry per chart to display.  Each
+    // entry should be an object with the following fields:
+    //
+    //     'title'
+    //
+    //         The title to display above this chart.
+    //
+    //     'value'
+    //
+    //         The value to display.
+    //
+    //     'max'
+    //
+    //         The maximum value for thi chart.
+
+    for (var i=0; i < charts.length; i++) {
+      var chart = charts[i]
+      $('#chart-' + i.toString()).thermometer({
+        value: chart.value,
+        max: chart.max
+      })
+    }
+  })
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <% include partial.head.ejs %>
+      <% include partial.charts.head.ejs %>
+    </head>
+    <body>
+        <div class="container-fluid">
+
+            <div style="height:20px"></div>
+
+            <% include partial.nav.ejs %>
+
+            <p class="lead">
+                Current Totals:
+            </p>
+
+            <% include partial.charts.body.ejs %>
+
+        </div>
+    </body>
+</html>

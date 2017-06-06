@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partial.head.ejs %>
+    <% include partial.charts.head.ejs %>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div style="height:20px"></div>
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="middle">
+          <td align="center">
+            <div style="display:inline-block; background: #323330; padding:50px">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="330px">
+                    <img src="/images/TTC-FLK-logo-singleTM.png"/>
+                  </td>
+                  <td>
+                    <table border="0"
+                           cellspacing="0"
+                           cellpadding="0">
+                      <tr>
+                        <td align="center">
+                          <h3 style="color:white">
+                            Taoist Tai Chi Society of
+                            New Zealand
+                          </h3>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <h3 style="color:white">
+                            Tai Chi Challenge
+                          </h3>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td align="right">
+            <form class="well" method="post"
+                               enctype="application/x-www-form-urlencoded">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control"
+                                   name="username"
+                                   value="<%= cur_username %>"
+                                   placeholder="Username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control"
+                                       name="password"
+                                       placeholder="Password">
+              </div>
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary">
+                  Sign In
+                </button>
+              </div>
+            </form>
+            <% if (error) { %>
+            <div style="background:red; color:white; padding:5px">
+              <center>
+                <b><i><%= error %></i></b>
+              </center>
+            </div>
+            <div style="height:10px"></div>
+            <% } %>
+            <button type="button"
+                    class="btn btn-block btn-success"
+                    onclick="window.location='/signup'">
+              Sign Up
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div style="height:20px"></div>
+
+      <p class="lead">
+        Welcome to the Taoist Tai Chi Challenge.  Your goal is to do as much 
+        Taoist Tai Chi practice as you can over a one-month period.  Every
+        minute you do helps your branch &mdash; and the national Society
+        &mdash; meet its goal, and by participating you have the chance to win
+        some great prizes.
+      </p>
+
+      <h3>
+      Current Totals:
+      </h3>
+
+      <% include partial.charts.body.ejs %>
+
+    </div>
+  </body>
+</html>

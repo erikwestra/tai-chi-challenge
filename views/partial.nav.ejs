@@ -1,0 +1,61 @@
+<!-- Navigation header to display at the top of each page while signed in -->
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"
+               style="padding:12px 15px">
+                <img alt="Logo" src="/images/ttclogo50.png"
+                     style="display:inline-block; height:30px"/>
+            </a>
+            <h4 class="navbar-text" style="font-size:big">
+                <b>Tai Chi Challenge</b>
+            </h4>
+        </div>
+
+        <ul class="nav navbar-nav">
+<% if (curView=='results') { %>
+            <li class="active">
+<% } else { %>
+            <li>
+<% } %>
+                <a href="/results" style="color:#337ab7">
+                    View Results
+                </a>
+            </li>
+<% if (curView=='participants') { %>
+            <li class="active">
+<% } else { %>
+            <li>
+<% } %>
+                <a href="/participants" style="color:#337ab7">
+                    Manage Participants
+                </a>
+            </li>
+
+<% if (curView=='times') { %>
+            <li class="active">
+<% } else { %>
+            <li>
+<% } %>
+                <a href="/times" style="color:#337ab7">
+                    Enter Times
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right"
+            style="padding-right:10px">
+            <li class="navbar-text">
+                <b><i>Welcome, <%= name %></i></b>
+            </li>
+
+            <li>
+            <button class="btn btn-default navbar-btn"
+                    onclick="window.location='/signout'">
+                Sign Out
+            </button>
+            </li>
+        </ul>
+    </div>
+</nav>

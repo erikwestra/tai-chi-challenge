@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partial.head.ejs %>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <div style="height:20px"></div>
+
+        <div class="jumbotron">
+          <h3><%= header %></h3>
+
+          <form method="post" action="<%= url %>">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text"
+                     class="form-control"
+                     name="name"
+                     value="<%= name %>"
+                     placeholder="Name"/>
+            </div>
+<% if (error) { %>
+            <div style="background:red; color:white; padding:5px">
+              <center>
+                <b><i><%= error %></i></b>
+              </center>
+            </div>
+            <div style="height:10px"></div>
+<% } %>
+            <div>
+              <div class="pull-left">
+                <input type="submit" name="submit" value="OK"
+                       class="btn btn-primary"/>
+                &nbsp;
+                <input type="submit" name="submit" value="Cancel"
+                       class="btn btn-default"/>
+              </div>
+              <div class="pull-right">
+<% if (canDelete) { %>
+                <input type="submit" name="submit" value="Delete"
+                       class="btn btn-danger"/>
+<% } %>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

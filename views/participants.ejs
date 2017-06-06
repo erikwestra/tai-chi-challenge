@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partial.head.ejs %>
+
+    <style>
+      /* Supress Bootstrap table-hovering for rows with the "no-hover" class.
+       */
+
+      .table-hover > tbody > tr.no-hover:hover > td,
+      .select-row > td {
+        background-color: #ffffff;
+      }
+
+      a.row-link {
+        display: block;
+      }
+
+      /* Prevent Bootstrap from underlining our <a> links */
+
+      a.row-link:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <div style="height:20px"></div>
+
+        <% include partial.nav.ejs %>
+
+        <p class="lead">
+           You are in charge of the following participants within the
+           <%= branch %> branch:
+        </p>
+
+        <table class="table table-hover table-bordered">
+          <% for(var i=0; i<participants.length; i++) { %>
+            <tr>
+              <td>
+                <a class="row-link"
+                   href="/participant/<%= participants[i].id %>">
+                  <%= participants[i].name %>
+                  <% if (participants[i].name === name) { %>
+                    <span>&nbsp;(you)</span>
+                  <% } %>
+                </a>
+              </td>
+            </tr>
+          <% } %>
+          <tr class="no-hover">
+            <td align="right">
+              <a class="btn btn-xs btn-default"
+                 href="/participant/add">
+                Add Participant
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

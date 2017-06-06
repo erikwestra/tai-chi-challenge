@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partial.head.ejs %>
+
+    <style>
+      .centre-contents {
+        text-align:center;
+      }
+      .fit-contents {
+        display:inline-block;
+      }
+      .heading {
+        font-weight: bold;
+        font-size: 24px;
+        text-align: center;
+      }
+      .footer {
+        padding: 10px;
+      }
+    </style>
+
+    <script language="javascript">
+      var changed;
+
+      // Disable our "Save" and "Cancel" buttons.
+
+      function disableButtons() {
+        $('#cancel').prop('disabled', true);
+        $('#save').prop('disabled', true);
+      }
+
+      // Enable our "Save" and "Cancel" buttons.
+
+      function enableButtons() {
+        $('#cancel').prop('disabled', false);
+        $('#save').prop('disabled', false);
+      }
+
+      // Call the given callback function if the user confirms that they want
+      // to leave this page.
+
+      function confirmBeforeLeavingPage(callback) {
+        bootbox.confirm(
+          "You haven't saved your changes.  Are you sure you want to leave " +
+          "this page?", function(confirmed) {
+            if (confirmed) {
+              callback();
+            }
+        });
+      }
+
+      // Switch the page to display the given participant.
+
+      function switchToParticipant(participantId) {
+        var url = '/times?participantId=' + participantId
+                + '&year=<%= curMonth.year %>'
+                + '&month=<%= curMonth.month %>';
+
+        if (changed) {
+          confirmBeforeLeavingPage(function() {
+            window.location = url;
+          })
+        } else {
+          window.location = url;
+        }
+      }
+
+      // Respond to the user clicking on our "Next Month" button.
+
+      function nextMonth() {
+        url = '/times?participantId=<%= participantId %>'
+            + '&year=<%= nextMonth.year %>'
+            + '&month=<%= nextMonth.month %>';
+
+        if (changed) {
+          confirmBeforeLeavingPage(function() {
+            window.location = url;
+          })
+        } else {
+          window.location = url;
+        }
+      }
+
+      // Respond to the user clicking on our "Previous Month" button.
+
+      function prevMonth() {
+        url = '/times?participantId=<%= participantId %>'
+            + '&year=<%= prevMonth.year %>'
+            + '&month=<%= prevMonth.month %>';
+
+        if (changed) {
+          confirmBeforeLeavingPage(function() {
+            window.location = url;
+          })
+        } else {
+          window.location = url;
+        }
+      }
+
+      // Return the portion of the given string that contains digits.
+
+      function extractDigits(s) {
+        var digits = '';
+        for (var i=0; i < s.length; i++) {
+          if ('1234567890'.indexOf(s[i]) >= 0) {
+            digits = digits + s[i]
+          }
+        }
+        return digits
+      }
+
+      // Parse the given string entered by the user.  We expect either an HH:MM
+      // value, or an integer number of minutes.
+
+      function parseInput(s) {
+        if (s.indexOf(':') == -1) {
+          // The string should be an integer number of minutes.
+          return extractDigits(s);
+        } else {
+          // The string should consist of two sets of digits separated by a
+          // colon, where the second set of digits might be empty.
+          var parts = s.split(':');
+          var hours = extractDigits(parts[0]);
+          var minutes = extractDigits(parts[1]);
+
+          return hours + ':' + minutes;
+        }
+      }
+
+      // Check the value entered into the given input field, updating the value
+      // to strip illegal characters and enabling our buttons if the value has
+      // changed.
+
+      function checkInput(field) {
+        field.value = parseInput(field.value)
+          if (field.value.length > 0) {
+            changed = true;
+            enableButtons();
+          }
+      }
+
+      // Disable our buttons when the page is loaded.
+
+      $(function() {
+        changed = false;
+        disableButtons();
+      })
+    </script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+
+      <div style="height:20px"></div>
+
+      <% include partial.nav.ejs %>
+
+      <div>
+        <span class="lead">
+          Enter times for &nbsp;
+        </span>
+
+        <select onChange="switchToParticipant(this.options[this.selectedIndex].id)">
+          <% for (var i=0; i < participants.length; i++) { %>
+          <option id="<%= participants[i].id %>"
+          <% if (participants[i].id === participantId) { %>
+                  selected
+          <% } %>
+          >
+            <%= participants[i].name %>
+          </option>
+          <% } %>
+        </select>
+        <span class="lead">
+          :
+        </span>
+      </div>
+
+      <br/>
+
+      <p class="lead" style="font-size:16px">
+          You can enter times either as a number of minutes, or as hours and
+          minutes, for example 90 or 1:30.
+      </p>
+
+      <br/>
+
+      <form method="post" enctype="application/x-www-form-urlencoded">
+        <div class="centre-contents">
+          <div class="fit-contents">
+
+            <div class="heading">
+              <% if (canGoToPreviousMonth) { %>
+                <button type="button" class="button btn-link pull-left"
+                        onClick="prevMonth()">
+                  <span class="glyphicon glyphicon-menu-left"></span>
+                </button>
+              <% } %>
+              <% if (canGoToNextMonth) { %>
+                <button type="button" class="button btn-link pull-right"
+                        onClick="nextMonth()">
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                </button>
+                <% } %>
+              <%= dateLabel %>
+              <div class="clearfix"></div>
+            </div>
+
+            <table class="table table-bordered"
+                   style="width:1px; margin:0px auto">
+              <thead>
+                <td align="center">
+                  <b>Monday</b>
+                </td>
+                <td align="center">
+                  <b>Tuesday</b>
+                </td>
+                <td align="center">
+                  <b>Wednesday</b>
+                </td>
+                <td align="center">
+                  <b>Thursday</b>
+                </td>
+                <td align="center">
+                  <b>Friday</b>
+                </td>
+                <td align="center">
+                  <b>Saturday</b>
+                </td>
+                <td align="center">
+                  <b>Sunday</b>
+                </td>
+              </thead>
+
+              <% for (var week=0; week < rows.length; week++) { %>
+              <tr>
+                <% for (var day=0; day < rows[week].length; day++) { %>
+                <%   var cell = rows[week][day] %>
+                <td>
+                  <% if (cell.isCurMonth) { %>
+                  <div class="pull-right"
+                       style="font-size:smaller; color:#202020">
+                    <% } else { %>
+                    <div class="pull-right"
+                         style="font-size:smaller; color:#a0a0a0">
+                      <% } %>
+                      <%= cell.day + "/" + cell.month %>
+                    </div>
+                    <div class="clearfix"></div>
+                    <% if (cell.isCurMonth) { %>
+                    <div style="text-align:center">
+                      <input type="text" size="6"
+                                         name="num_days_<%= cell.day %>"
+                                         onkeyup="checkInput(this)"
+                      <% if (cell.num_minutes) { %>
+                                         value="<%= cell.num_minutes %>"
+                      <% } %>
+                      >
+                      </input>
+                    </div>
+                    <% } %>
+                </td>
+                <% } %>
+              </tr>
+              <% } %>
+            </table>
+
+            <div class="footer">
+              <input id="cancel" type="submit" name="submit" value="Cancel"
+                     class="btn btn-default pull-left"/>
+              <input id="save" type="submit" name="save" Value="Save"
+                     class="btn btn-primary pull-right"/>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden form fields for the participant ID, year and month -->
+
+        <input type="hidden" name="participantId"
+               value="<%= participantId %>"/>
+        <input type="hidden" name="year"
+               value="<%= curMonth.year %>"/>
+        <input type="hidden" name="month"
+               value="<%= curMonth.month %>"/>
+      </form>
+    </div>
+  </body>
+</html>
+

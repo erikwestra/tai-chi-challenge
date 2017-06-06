@@ -1,0 +1,20 @@
+# This file shows the various settings to include in the .env file.  For
+# deploying on Heroku, use `heroku config:set <key>=<value>`.
+
+# The URL to use to access our database.  This is a standard database URL.
+
+DATABASE_URL=postgres://postgres:hal9000@localhost/tai_chi_challenge
+
+# The number of minutes we are aiming for as a national goal:
+
+NATIONAL_GOAL=30000
+
+# The date on which the challenge starts, in YYYY-MM-DD format.  If this is not
+# specified, the challenge will not have a specific start date.
+
+START_DATE=2017-07-01
+
+# The date on which the challenge ends, in YYYY-MM-DD format.  If this is not
+# specified, the challenge will not have a specific end date.
+
+END_DATE=2017-07-31

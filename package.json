@@ -1,0 +1,27 @@
+{
+  "name": "tai-chi-challenge",
+  "version": "1.0.0",
+  "description": "Simple web app to keep track of the Tai Chi Challenge.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nf start",
+    "watch": "source .env; nodemon --watch ."
+  },
+  "author": "Erik Westra",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "calendar": "^0.1.0",
+    "cli-config": "^0.4.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "moment": "^2.18.1",
+    "multer": "^1.3.0",
+    "pg": "6.x",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "prompt": "1.0.0"
+  }
+}
