@@ -1,6 +1,10 @@
 # This file shows the various settings to include in the .env file.  For
 # deploying on Heroku, use `heroku config:set <key>=<value>`.
 
+# The TCP/IP port to use.  This is set by Heroku automatically.
+
+PORT=8080
+
 # The URL to use to access our database.  This is a standard database URL.
 
 DATABASE_URL=postgres://postgres:hal9000@localhost/tai_chi_challenge
