@@ -1,7 +1,7 @@
 {
   "name": "Tai Chi Challenge",
   "description": "A simple web app to keep track of the Tai Chi Challenge.",
-  "repository": "FIXME",
+  "repository": "https://github.com/erikwestra/tai-chi-challenge",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
   "keywords": ["node", "express", "tai chi"],
   "image": "heroku/nodejs"
